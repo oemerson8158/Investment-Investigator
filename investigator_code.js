@@ -686,7 +686,7 @@ function findAnAccount() {
 function findAnAccountOutput() {
   setText("findAccountsOutput", 
     "Investment Investigator suggests the " + finalAccount + " at " + finalBank + 
-    " with an interest rate of " + Math.round(finalRate * 1000)/10 + "%, compounded " + finalCompounding + 
+    " with an interest rate of " + Math.round(finalRate * 10000)/100 + "%, compounded " + finalCompounding + 
     " times per year. It has monthly fees of $" + finalFee + " and a minimum deposit of $"
      + finalMinimumDeposit + ". After " + getNumber("findAccountsInvestmentLengthInput") + 
      " years, your initial deposit of $" + getNumber("findAccountsPrincipalInput") + " will grow to $" + 
