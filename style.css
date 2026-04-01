@@ -806,6 +806,11 @@ button:active {
   outline: none;
 }
 
+#homeScreen .screen-content {
+  padding-top: 70px; /* moves title down below buttons */
+}
+
+
 /* ------------------------------
    MOBILE OPTIMIZATION
 ------------------------------ */
