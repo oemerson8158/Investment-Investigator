@@ -9,6 +9,17 @@ body {
   background: #f5f7fa;
   color: #1a1a1a;
 }
+.global-header {
+  position: relative;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+
+  align-items: center;
+  justify-content: flex-end;
+}
 
 .app-container {
   max-width: 480px;
@@ -115,9 +126,6 @@ body {
 
 /* Small floating help button in top-right corner of every screen */
 .help-button {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -144,9 +152,6 @@ body {
 
 /* Small floating about button in top-right corner of every screen */
 .about-button {
-  position: absolute;
-  top: 12px;
-  right: 52px;
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -806,9 +811,7 @@ button:active {
   outline: none;
 }
 
-#homeScreen .screen-content {
-  padding-top: 70px; /* moves title down below buttons */
-}
+
 
 
 /* ------------------------------
