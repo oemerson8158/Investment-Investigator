@@ -1,0 +1,831 @@
+/* ------------------------------
+   GLOBAL APP LAYOUT
+------------------------------ */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, Roboto, sans-serif;
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide all screens by default */
+.screen {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Active screen */
+.screen.active {
+  display: flex;
+}
+
+/* ------------------------------
+   HOME SCREEN HEADER 
+------------------------------ */
+.app-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #0a2540;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.7px;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* ------------------------------
+   HEADERS
+------------------------------ */
+
+.screen-header {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+.screen-header h1,
+.screen-header h2 {
+  margin: 0;
+  font-weight: 600;
+  color: #0a2540;
+}
+
+/* Underline for all screen headers */
+.screen-header {
+  position: relative;
+  padding-bottom: 16px; 
+}
+
+.screen-header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 80%;          
+  height: 2px;
+  background: #d0d7e2;   
+  border-radius: 2px;
+}
+
+.screen-header {
+  margin-bottom: 24px;  
+}
+
+/* ------------------------------
+   CONTENT AREA
+------------------------------ */
+
+.screen-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form layout */
+.form-layout input,
+.form-layout select {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  box-sizing: border-box;
+}
+
+.form-layout input:focus,
+.form-layout select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* Small floating help button in top-right corner of every screen */
+.help-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a84ff;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.help-button:hover {
+  background: #006be6;
+}
+
+.help-button:active {
+  background: #005ac2;
+}
+
+/* Small floating about button in top-right corner of every screen */
+.about-button {
+  position: absolute;
+  top: 12px;
+  right: 52px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a84ff;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.about-button:hover {
+  background: #006be6;
+}
+
+.about-button:active {
+  background: #005ac2;
+}
+
+
+/* ------------------------------
+   SCREEN GAP SIZING
+------------------------------ */
+
+/* Interest Screen */
+#interestScreen .screen-content {
+  gap: 30px;   
+}
+
+/* Help Screen */
+#helpScreen .screen-content {
+  gap: 30px;   
+}
+
+/* About Screen */
+#aboutScreen .screen-content {
+  gap: 30px;   
+}
+
+/* Savings Plan Screen 1 */
+#savingsPlanScreen1 .form-layout {
+  gap: 10px;  
+}
+
+/* Savings Plan Screen 2 */
+#savingsPlanScreen2 .form-layout {
+  gap: 10px;  
+}
+
+/* Savings Plan Output Screen */
+#savingsPlanOutputScreen .form-layout {
+  gap: 30px;  
+}
+
+/* Savings Plan Summary Screen */
+#savingsPlanSummaryScreen .form-layout {
+  gap: 30px;  
+}
+
+/* Find Accounts Screen 1 */
+#findAccountsScreen1 .form-layout {
+  gap: 10px;  
+}
+
+/* Find Accounts Screen 2 */
+#findAccountsScreen2 .form-layout {
+  gap: 10px;
+}
+
+/* Find Accounts Output Screen */
+#findAccountsOutputScreen .form-layout {
+  gap: 30px;
+}
+
+/* Find Accounts Summary Screen */
+#findAccountsSummaryScreen .form-layout {
+  gap: 30px;
+}
+
+/* Browse Accounts Screen 1 */
+#browseAccountsScreen1 .form-layout {
+  gap: 30px;
+}
+
+/* Browse Accounts Compare Rates Screen 1 */
+#browseAccountsCompareRatesScreen1 .form-layout {
+  gap: 10px;
+}
+
+/* Compare Rates Output Screen */
+#compareRatesOutputScreen .form-layout {
+  gap: 30px;
+}
+
+
+/* ------------------------------
+   OUTPUT TEXT AREAS AND CAPTIONS
+------------------------------ */
+
+/* FIND ACCOUNTS OUTPUT SCREEN */
+#findAccountsOutput {
+  width: 100%;
+  height: 220px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+
+#findAccountsOutput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+.graph-caption {
+  text-align: center;
+  font-size: 15px;
+  color: #0a2540;       
+  margin-top: -10px;     
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+/* COMPARE RATES OUTPUT SCREEN */
+
+#compareRatesOutput {
+  width: 100%;
+  height: 240px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#compareRatesOutput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* BROWSE ACCOUNTS SEARCH OUTPUT SCREEN */
+#browseAccountsSearchOutput {
+  width: 100%;
+  height: 220px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+/* HELP SCREEN */
+#helpScreenOutput {
+  width: 100%;
+  height: 255px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#helpScreenOutput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* ABOUT SCREEN */
+#aboutScreenOutput {
+  width: 100%;
+  height: 350px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#aboutScreenOutput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* SAVINGS PLAN SUMMARY SCREEN */
+#savingsPlanOutput {
+  width: 100%;
+  height: 255px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#savingsPlanOutput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* ------------------------------
+   TUTORIAL TEXT AREAS
+------------------------------ */
+
+/* Savings Plan Output Screen Tutorial */
+#savingsPlanOutputScreenTutorial {
+  width: 100%;
+  height: 240px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#savingsPlanOutpuScreenTutorial:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* Compare Rates Screen 1 Tutorial */
+#compareRatesScreen1Tutorial {
+  width: 100%;
+  height: 285px;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+#compareRatesScreen1Tutorial:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* ------------------------------------------
+   ROW CONTAINER FOR SEARCH BAR + BUTTON
+------------------------------------------- */
+
+.browse-search-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+#browseAccountsSearchBar {
+  flex: 1;             
+  max-width: 450px;   
+}
+
+
+#browseAccountsSearchButton {
+  flex: 0;             
+  padding: 8px 14px;    
+  font-size: 20px;      
+}
+
+/* ------------------------------------------
+   ROW CONTAINER FOR ABOUT SCREEN BUTTONS
+------------------------------------------- */
+
+.about-button-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ------------------------------------------
+   ROW CONTAINER FOR TOOL TIPS
+------------------------------------------- */
+
+.tool-tips-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+#findAccountsMonthlyFeesInput {
+  flex: 1;              
+  max-width: 450px;     
+}
+
+#findAccountsMonthlyFeesToolTip {
+  flex: 0;            
+  padding: 4px 7px;    
+  font-size: 18px;     
+}
+
+#findAccountsMinimumDepositInput {
+  flex: 1;            
+  max-width: 450px;     
+}
+
+#findAccountsMinimumDepositToolTip {
+  flex: 0;              
+  padding: 4px 7px;    
+  font-size: 18px;      
+}
+
+#findAccountsFixedRatesInput {
+  flex: 1;         
+  max-width: 450px;    
+}
+
+#findAccountsFixedRatesToolTip {
+  flex: 0;           
+  padding: 4px 7px;   
+  font-size: 18px;  
+}
+
+#savingsPlanMonthlyFeesInput {
+  flex: 1;             
+  max-width: 450px;     
+}
+
+#savingsPlanMonthlyFeesToolTip {
+  flex: 0;            
+  padding: 4px 7px;  
+  font-size: 18px;      /
+}
+
+#savingsPlanMinimumDepositInput {
+  flex: 1;           
+  max-width: 450px;  
+}
+
+#savingsPlanMinimumDepositToolTip {
+  flex: 0;        
+  padding: 4px 7px; 
+  font-size: 18px;  
+}
+
+#savingsPlanFixedRatesInput {
+  flex: 1;           
+  max-width: 450px;     
+}
+
+#savingsPlanFixedRatesToolTip {
+  flex: 0;           
+  padding: 4px 7px;    
+  font-size: 18px;   
+}
+
+#savingsPlanOutputScreen.screen-header {
+  flex: 1;              
+  max-width: 450px;     
+}
+
+#savingsPlanOutputScreenToolTip {
+  flex: 0;          
+  padding: 4px 7px;  
+  font-size: 18px;      
+}
+
+#borwseAccountsCompareRatesScreen1.screen-header {
+  flex: 1;              
+  max-width: 450px;     
+}
+
+#compareRatesScreen1ToolTip {
+  flex: 0;          
+  padding: 4px 7px;  
+  font-size: 18px;      
+}
+
+/* Tool Tip Buttons */
+#findAccountsMonthlyFeesToolTip,
+#findAccountsMinimumDepositToolTip,
+#findAccountsFixedRatesToolTip,
+#savingsPlanMonthlyFeesToolTip,
+#savingsPlanMinimumDepositToolTip,
+#savingsPlanFixedRatesToolTip,
+#savingsPlanOutputScreenToolTip,
+#compareRatesScreen1ToolTip {
+  background: #e1e8f0;
+  color: #0a2540;
+}
+
+#findAccountsMonthlyFeesToolTip:hover,
+#findAccountsMinimumDepositToolTip:hover,
+#findAccountsFixedRatesToolTip:hover,
+#savingsPlanMonthlyFeesToolTip:hover,
+#savingsPlanMinimumDepositToolTip:hover,
+#savingsPlanFixedRatesToolTip:hover,
+#savingsPlanOutputScreenToolTip:hover,
+#compareRatesScreen1ToolTip:hover {
+  background: #d5dde7;
+}
+
+/* ------------------------------------------
+   CENTER + COMPACT TABLES FOR ALL ACCOUNTS 
+------------------------------------------- */
+
+#browseAccountsAllAccountsScreen .screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;        
+  padding: 10px;
+}
+
+#browseAccountsAllAccountsScreen .data-table-container {
+  width: 100%;
+  max-width: 420px;     
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;    
+}
+
+#browseAccountsAllAccountsScreen .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;          
+}
+
+#browseAccountsAllAccountsScreen table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+#browseAccountsAllAccountsScreen table {
+  display: block;
+  max-height: 260px;      
+  overflow-y: auto;
+}
+
+/* Compact table cells */
+#browseAccountsAllAccountsScreen .data-table th,
+#browseAccountsAllAccountsScreen .data-table td {
+  padding: 6px 8px;
+}
+
+#browseAccountsAllAccountsScreen .data-table th {
+  background-color: #34495e;
+  color: white;
+  position: sticky;
+  top: 0;                     
+  z-index: 1;
+}
+
+#browseAccountsAllAccountsScreen .data-table tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
+
+#browseAccountsAllAccountsScreen .section-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+/* ------------------------------------------
+   HORIZONTAL + VERTICAL SCROLLING FOR TABLES
+   FOR ALL ACCOUNTS SCREEN
+------------------------------------------- */
+
+#browseAccountsAllAccountsScreen .data-table {
+  display: block;            
+  overflow-x: auto;            
+  overflow-y: auto;           
+  max-width: 100%;          
+  white-space: nowrap;        
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+#browseAccountsAllAccountsScreen .data-table th,
+#browseAccountsAllAccountsScreen .data-table td {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+#browseAccountsAllAccountsScreen .data-table th {
+  background-color: #34495e;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#browseAccountsAllAccountsScreen .data-table tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
+
+
+/* ------------------------------
+   BUTTONS
+------------------------------ */
+
+button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #0a84ff;
+  color: white;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #006be6;
+}
+
+button:active {
+  background: #005ac2;
+}
+
+/* Secondary-style buttons (IDs preserved) */
+#RefreshAccounts {
+  background: #e1e8f0;
+  color: #0a2540;
+}
+
+#RefreshAccounts:hover {
+  background: #d5dde7;
+}
+
+
+
+/* ------------------------------
+   BUTTON ROWS (Back/Next)
+------------------------------ */
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.button-row button {
+  flex: 1;
+}
+
+/* Back buttons */
+#interestScreenBackButton,
+#helpScreenBackButton,
+#aboutScreenBackButton,
+#savingsPlanScreen1BackButton,
+#savingsPlanScreen2BackButton,
+#savingsPlanOutputScreenBackButton,
+#savingsPlanSummaryScreenBackButton,
+#findAccountsScreen1BackButton,
+#findAccountsScreen2BackButton,
+#findAccountsOutputScreenBackButton,
+#browseAccountsScreen1BackButton,
+#browseAccountsAllAccountsScreenBackButton,
+#browseAccountsSearchOutputScreenBackButton,
+#browseAccountsCompareRatesScreen1BackButton,
+#compareRatesOutputScreenBackButton {
+  background: #e1e8f0;
+  color: #0a2540;
+}
+
+#interestScreenBackButton:hover,
+#helpScreenBackButton:hover,
+#aboutScreenBackButton:hover,
+#savingsPlanScreen1BackButton:hover,
+#savingsPlanScreen2BackButton:hover,
+#savingsPlanOutputScreenBackButton:hover,
+#savingsPlanSummaryScreenBackButton:hover,
+#findAccountsScreen1BackButton:hover,
+#findAccountsScreen2BackButton:hover,
+#findAccountsOutputScreenBackButton:hover,
+#browseAccountsScreen1BackButton:hover,
+#browseAccountsAllAccountsScreenBackButton:hover,
+#browseAccountsSearchOutputScreenBackButton:hover,
+#browseAccountsCompareRatesScreen1BackButton:hover,
+#compareRatesOutputScreenBackButton:hover {
+  background: #d5dde7;
+}
+
+/* ------------------------------
+   HOME SCREEN TITLE
+------------------------------ */
+
+#title h1 {
+  margin: 0;
+  font-size: 28px;
+  text-align: center;
+  color: #0a2540;
+}
+
+/* Remove contenteditable outline */
+#title:focus {
+  outline: none;
+}
+
+/* ------------------------------
+   MOBILE OPTIMIZATION
+------------------------------ */
+
+@media (max-width: 480px) {
+  body {
+    background: #ffffff;
+  }
+
+  .screen {
+    padding: 16px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  input, select {
+    font-size: 15px;
+  }
+}
+

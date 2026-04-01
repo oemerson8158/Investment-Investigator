@@ -1,0 +1,29 @@
+id,Bank,Account Name,Interest (Decimal),Compoundings per Year,Monthly Fees,Minimum Deposit
+1,JPMorgan Chase,Chase Savings,0.0001,12,5.0,0.0
+2,Bank of America,Advantage Savings,0.0001,12,8.0,100.0
+3,Citibank,Citi Savings,0.0001,12,4.5,0.0
+4,Wells Fargo,Way2Save Savings,0.0001,12,5.0,25.0
+5,U.S. Bank,Standard Savings,0.0001,12,4.0,25.0
+6,Goldman Sachs,Marcus Online Savings,0.0365,365,0.0,0.0
+7,PNC Bank,Standard Savings,0.0001,12,5.0,25.0
+8,Truist Bank,One Savings,0.0001,12,5.0,50.0
+9,Capital One,360 Performance Savings,0.033,12,0.0,0.0
+13,Pibank,Pibank Savings,0.046,12,0.0,0.0
+14,Newtek Bank,Personal High Yield Savings,0.0435,12,0.0,0.0
+15,Climate First Bank,Super Duper Savings,0.0421,12,0.0,50.0
+16,Openbank,High-Yield Savings,0.042,12,0.0,500.0
+17,Ivy Bank,High-Yield Savings,0.041,12,0.0,2500.0
+18,Vio Bank,Online Savings Account,0.0409,12,0.0,100.0
+19,MutualOne Bank,Mo Premium Savings,0.0407,12,0.0,20000.0
+20,Bread Savings,High-Yield Savings,0.0405,12,0.0,100.0
+21,My Banking Direct,High-Yield Savings,0.0402,12,0.0,500.0
+22,TotalBank,Money Market Account,0.0401,12,0.0,25000.0
+23,EverBank,Performance Savings,0.039,12,0.0,0.0
+24,Barclays,Tiered Savings,0.0385,12,0.0,0.0
+25,Western Alliance Bank,High-Yield Savings,0.038,12,0.0,1.0
+26,Bask Bank,Interest Savings Account,0.0375,365,0.0,0.0
+27,CIT Bank,Platinum Savings,0.0375,12,0.0,5000.0
+28,Synchrony Bank,High-Yield Savings,0.0365,365,0.0,0.0
+29,Ally Bank,Online Savings,0.033,365,0.0,0.0
+30,UFB Direct,Portfolio Savings,0.0326,12,0.0,0.0
+31,Alliant Credit Union,High-Rate Savings,0.031,12,0.0,0.0

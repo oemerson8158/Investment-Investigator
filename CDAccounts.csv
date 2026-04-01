@@ -1,0 +1,33 @@
+id,Bank,Account Name,Interest (Decimal),Compoundings per Year,Monthly Fees,Minimum Deposit
+3,JPMorgan Chase,Standard Fixed Term CD (12mo),0.0001,12,0.0,1000.0
+4,Bank of America,Fixed Term CD (12mo),0.0003,12,0.0,1000.0
+5,Citibank,Standard Fixed Term CD (12mo),0.02,12,0.0,500.0
+6,Wells Fargo,Standard Fixed Rate CD (12mo),0.015,12,0.0,2500.0
+7,U.S. Bank,Standard CD (12mo),0.0005,12,0.0,500.0
+8,Goldman Sachs,High-Yield CD (12mo),0.04,365,0.0,500.0
+9,PNC Bank,Standard Fixed Term CD (12mo),0.0001,12,0.0,1000.0
+10,Truist Bank,Standard Fixed Term CD (12mo),0.0005,12,0.0,1000.0
+11,Capital One,360 CD (12mo),0.041,12,0.0,0.0
+12,Apple Federal Credit Union,1-Year Certificate,0.05,12,0.0,500.0
+13,Genisys Credit Union,13-Month Certificate,0.0416,12,0.0,500.0
+14,Abound Credit Union,13-Month Certificate,0.0415,12,0.0,500.0
+15,E*TRADE,12-Month CD,0.041,12,0.0,0.0
+16,Sallie Mae Bank,12-Month CD,0.04,12,0.0,2500.0
+17,American Bank,12-Month CD,0.0405,12,0.0,500.0
+18,GTE Financial,12-Month CD,0.0402,12,0.0,500.0
+19,Live Oak Bank,12-Month CD,0.04,12,0.0,2500.0
+20,Newtek Bank,12-Month CD,0.04,12,0.0,2500.0
+21,Alliant Credit Union,12-Month Share Certificate,0.04,12,0.0,1000.0
+22,Limelight Bank,12-Month CD,0.04,12,0.0,1000.0
+23,Popular Direct,12-Month CD,0.04,12,0.0,10000.0
+24,Synchrony Bank,1-Year CD,0.038,365,0.0,0.0
+25,Discover Bank,12-Month CD,0.039,12,0.0,0.0
+26,Ally Bank,12-Month CD,0.0385,365,0.0,0.0
+27,My Banking Direct,12-Month CD,0.038,12,0.0,2500.0
+28,TAB Bank,12-Month CD,0.039,12,0.0,1000.0
+29,Bask Bank,12-Month CD,0.0375,365,0.0,1000.0
+30,Bread Savings,1-Year CD,0.0405,12,0.0,1500.0
+31,CFG Bank,12-Month CD,0.0415,12,0.0,500.0
+32,LendingClub,12-Month CD,0.041,12,0.0,500.0
+33,Quontic Bank,12-Month CD,0.0385,12,0.0,500.0
+34,Vio Bank,12-Month CD,0.0385,12,0.0,500.0

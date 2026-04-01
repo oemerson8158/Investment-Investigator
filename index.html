@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Investment Investigator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Global Buttons -->
+    <button id="globalHelpButton" class="help-button">?</button>
+    <button id="globalAboutButton" class="about-button">i</button>
+
+    <!-- Home Screen -->
+    <div class="screen active" id="homeScreen" data-theme="default">
+    
+      <header class="screen-header">
+        <h1 class="app-title">Investment Investigator</h1>
+      </header>
+    
+    
+      <div class="screen-content">
+    
+        <img src="Gemini_Generated_Image_aazj6daazj6daazj-removebg-preview.png" alt="Investigator Illustration">
+    
+        <button id="interestButton">Investigate Interest</button>
+      </div>
+    </div>
+
+    <!-- Help Screen -->
+    <div class="screen" id="helpScreen" data-theme="default">
+    
+      <header class="screen-header">
+        <h2>Help Menu</h2>
+      </header>
+    
+      <div class="screen-content">
+        <button id="monthlyFeesHelpButton">Why Would I Want Monthly Fees?</button>
+        <button id="minimumDepositHelpButton">Why Would I Want a Minimum Deposit?</button>
+        <button id="fixedRatesHelpButton">Why Would I Want Fixed Rates?</button>
+        <button id="interestAccountsHelpButton">What Are Interest-Bearing Accounts?</button>
+    
+        <textarea id="helpScreenOutput" readonly></textarea>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="helpScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- About Screen -->
+    <div class="screen" id="aboutScreen" data-theme="default">
+    
+      <header class="screen-header">
+        <h2>About</h2>
+      </header>
+    
+      <div class="screen-content">
+        <div class="about-button-row">
+          <button id="aboutScreenAboutButton">About</button>
+          <button id="aboutScreenV2.0Button">V2.0 Update</button>
+          <button id="aboutScreenDisclaimerButton">Disclaimer</button>
+        </div>
+    
+        <textarea id="aboutScreenOutput" readonly></textarea>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="aboutScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Interest Screen -->
+    <div class="screen" id="interestScreen" data-theme="default">
+
+      <header class="screen-header">
+        <h2>Interest Tools</h2>
+      </header>
+
+      <div class="screen-content">
+        <button id="savingsPlanButton">Create a Savings Plan</button>
+        <button id="findAnAccountButton">Find a Savings Account</button>
+        <button id="browseAccountsButton">Browse Accounts</button>
+        <button id="RefreshAccounts">Refresh Accounts</button>
+      </div>
+
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="interestScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Savings Plan Screen 1 -->
+    <div class="screen" id="savingsPlanScreen1" data-theme="default">
+
+      <header class="screen-header">
+        <h2>Savings Plan Setup</h2>
+      </header>
+
+      <div class="screen-content form-layout">
+
+        <label for="savingsPlanInvestmentGoalInput">Investment Goal ($)</label>
+        <input id="savingsPlanInvestmentGoalInput" placeholder="Ex. 1000">
+        
+        <label for="savingsPlanInvestmentLengthInput">Investment Length (Years)</label>
+        <input id="savingsPlanInvestmentLengthInput" placeholder="Ex. 10">
+        
+        <label for="savingsPlanDepositFrequencyInput">Recurring Deposit Frequency (Times per Year)</label>
+        <input id="savingsPlanDepositFrequencyInput" placeholder="Ex. 12 for Monthly">
+      
+      </div>
+
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="savingsPlanScreen1BackButton">Back</button>
+          <button id="savingsPlanScreen1NextButton">Next</button>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Savings Plan Screen 2 -->
+    <div class="screen" id="savingsPlanScreen2" data-theme="default">
+
+      <header class="screen-header">
+        <h2>Plan Preferences</h2>
+      </header>
+
+      <div class="screen-content form-layout">
+
+        <label for="savingsPlanPreferredBankInput">Bank Preference</label>
+        <input id="savingsPlanPreferredBankInput" placeholder="Preferred Bank? (None if no Preference)">
+
+        <label for="savingsPlanFixedRatesInput">Fixed Rates Preference</label>
+
+        <div class="tool-tips-row">
+          <select id="savingsPlanFixedRatesInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="savingsPlanFixedRatesToolTip">?</button>
+        </div>
+
+        <label for="savingsPlanMonthlyFeesInput">Monthly Fees Preference</label>
+
+        <div class="tool-tips-row">
+          <select id="savingsPlanMonthlyFeesInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="savingsPlanMonthlyFeesToolTip">?</button>
+        </div>
+
+        <label for="savingsPlanMinimumDepositInput">Minimum Deposit Preference</label>
+
+        <div class="tool-tips-row">
+          <select id="savingsPlanMinimumDepositInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="savingsPlanMinimumDepositToolTip">?</button>
+        </div>
+
+      </div>
+
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="savingsPlanScreen2BackButton">Back</button>
+          <button id="savingsPlanCalculateButton">Create</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Savings Plan Output Screen -->
+    <div class="screen" id="savingsPlanOutputScreen" data-theme="default">
+      <header class="screen-header">
+        <div class="tool-tips-row">
+          <h2>Principal and Deposit Amount</h2>
+          <button id="savingsPlanOutputScreenToolTip">?</button>
+        </div>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <canvas id="savingsPlanCanvas" width="600" height="400"
+          style="border:1px solid #ccc; border-radius:8px; width:100%;">
+        </canvas>
+    
+        <p class="graph-caption">Select a Principal/Deposit Amount</p>
+    
+        <button id="confirmPointButton">Confirm Point</button>
+
+        <textarea id="savingsPlanOutputScreenTutorial" readonly></textarea>
+      
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="savingsPlanOutputScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Savings Plan Summary Screen -->
+    <div class="screen" id="savingsPlanSummaryScreen" data-theme="default">
+      <header class="screen-header">
+        <h2>Your Savings Plan</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <textarea id="savingsPlanOutput" readonly></textarea>
+        <canvas id="savingsPlanOutputCanvas" width="600" height="400"
+          style="border:1px solid #ccc; border-radius:8px; width:100%;">
+        </canvas>
+    
+        <p class="graph-caption">Savings Plan Growth Over Time</p>
+    
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="savingsPlanSummaryScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Find Accounts Screen 1 -->
+    <div class="screen" id="findAccountsScreen1" data-theme="default">
+      <header class="screen-header">
+        <h2>Account Criteria</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+        <label for="findAccountsPrincipalInput">Starting Amount ($)</label>
+        <input id="findAccountsPrincipalInput" placeholder="Ex. 1000">
+    
+        <label for="findAccountsInvestmentLengthInput">Investment Length (Years)</label>
+        <input id="findAccountsInvestmentLengthInput" placeholder="Ex. 10">
+    
+        <label for="findAccountsMonthlyFeesInput">Monthly Fees Preference</label>
+    
+        <div class="tool-tips-row">
+          <select id="findAccountsMonthlyFeesInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="findAccountsMonthlyFeesToolTip">?</button>
+        </div>
+    
+    
+        <label for="findAccountsMinimumDepositInput">Minimum Deposit Preference</label>
+    
+        <div class="tool-tips-row">
+          <select id="findAccountsMinimumDepositInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="findAccountsMinimumDepositToolTip">?</button>
+        </div>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="findAccountsScreen1BackButton">Back</button>
+          <button id="findAccountsScreen1NextButton">Next</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Find Accounts Screen 2 -->
+    <div class="screen" id="findAccountsScreen2" data-theme="default">
+      <header class="screen-header">
+        <h2>Account Preferences</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <label for="findAccountsPreferredBankInput">Bank Preference</label>
+        <input id="findAccountsPreferredBankInput" placeholder="Preferred Bank? (None if no Preference)">
+    
+        <label for="findAccountsFixedRatesInput">Fixed Rates Preference</label>
+    
+        <div class="tool-tips-row">
+          <select id="findAccountsFixedRatesInput">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <button id="findAccountsFixedRatesToolTip">?</button>
+        </div>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="findAccountsScreen2BackButton">Back</button>
+          <button id="findAccountsCalculateButton">Find</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Find Accounts Output Screen -->
+    <div class="screen" id="findAccountsOutputScreen" data-theme="default">
+      <header class="screen-header">
+        <h2>Search Results</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <textarea id="findAccountsOutput" readonly></textarea>
+        <canvas id="interestCanvas" width="600" height="400" style="border:1px solid #ccc; border-radius:8px; width:100%;">
+        </canvas>
+
+        <p class="graph-caption">Projected Savings Growth</p>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="findAccountsOutputScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Browse Accounts Screen 1 -->
+    <div class="screen" id="browseAccountsScreen1" data-theme="default">
+      <header class="screen-header">
+        <h2>Browse Accounts</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <div class="browse-search-row">
+          <input id="browseAccountsSearchBar" placeholder="Search Accounts (Enter Account Name or Bank)">
+          <button id="browseAccountsSearchButton">🔍</button>
+        </div>
+    
+    
+        <button id="browseAccountsCompareRatesButton">Compare Accounts</button>
+        <button id="browseAccountsSeeAllAccountsButton">See All Accounts</button>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="browseAccountsScreen1BackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Browse Accounts Search Output Screen -->
+    <div class="screen" id="browseAccountsSearchOutputScreen" data-theme="default">
+      <header class="screen-header">
+        <h2>Search Results</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <textarea id="browseAccountsSearchOutput" readonly></textarea>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="browseAccountsSearchOutputScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Browse Accounts All Accounts Screen -->
+    <div class="screen" id="browseAccountsAllAccountsScreen" data-theme="default">
+      <header class="screen-header">
+        <h2>All Accounts</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <div class="data-table-container">
+    
+          <h2 class="section-title">Standard Savings Accounts</h2>
+          <table id="standardAccountsTable" class="data-table"></table>
+    
+          <h2 class="section-title">CD Accounts</h2>
+          <table id="cdAccountsTable" class="data-table"></table>
+    
+        </div>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="browseAccountsAllAccountsScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Browse Accounts Compare Rates Screen 1-->
+    <div class="screen" id="browseAccountsCompareRatesScreen1" data-theme="default">
+      <header class="screen-header">
+        <div class="tool-tips-row">
+          <h2>Compare Accounts</h2>
+          <button id="compareRatesScreen1ToolTip">?</button>
+        </div>
+      </header>
+    
+      <div class="screen-content form-layout">
+
+        <label for="compareRatesAccount1Input">Account 1</label>
+        <input id="compareRatesAccount1Input" placeholder="Enter Account Bank/Keyword">
+        
+        <label for="compareRatesAccount2Input">Account 2</label>
+        <input id="compareRatesAccount2Input" placeholder="Enter Account Bank/Keyword">
+        
+        <label for="compareRatesLengthInput">Simulated Investment Length</label>
+        <input id="compareRatesLengthInput" placeholder="Ex. 5">
+
+        <label for="compareRatesPrincipalInput">Simulated Principal</label>
+        <input id="compareRatesPrincipalInput" placeholder="Ex. 1000">
+
+        <textarea id="compareRatesScreen1Tutorial" readonly></textarea>
+
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="browseAccountsCompareRatesScreen1BackButton">Back</button>
+          <button id="browseAccountsCompareRatesCalculateButton">Compare</button>
+        </div>
+      </footer>
+    </div>
+
+     <!-- Compare Rates Output Screen -->
+    <div class="screen" id="compareRatesOutputScreen" data-theme="default">
+      <header class="screen-header">
+        <h2>Account Comparison</h2>
+      </header>
+    
+      <div class="screen-content form-layout">
+    
+        <textarea id="compareRatesOutput" readonly></textarea>
+        <canvas id="compareRatesCanvas" width="600" height="400" style="border:1px solid #ccc; border-radius:8px; width:100%;">
+        </canvas>
+
+        <p class="graph-caption">Accounts Compared Over Time</p>
+    
+      </div>
+    
+      <footer class="screen-footer">
+        <div class="button-row">
+          <button id="compareRatesOutputScreenBackButton">Back</button>
+        </div>
+      </footer>
+    </div>
+
+
+    
+
+  </div>
+  
+  <script src="investigator_helpers.js"></script>
+  <script src="investigator_code.js"></script>
+  <script src="investigator_screen_nav.js"></script>
+</body>
+</html>
