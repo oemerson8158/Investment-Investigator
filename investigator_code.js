@@ -77,7 +77,7 @@ let filteredCDAccountsMinimumDeposits = null;
 ///////////////////////////////////////////////////////////////////////////
 async function callGroq(prompt) {
 
-  // Send POST request to your Cloudflare Worker acting as a Groq proxy
+  // Send POST request to Cloudflare Worker acting as a Groq proxy
   const response = await fetch("https://investment-investigator.oemerson8158.workers.dev/groq", {
     method: "POST",
     headers: {
@@ -107,12 +107,12 @@ async function callGroq(prompt) {
 ///////////////////////////////////////////////////////////////////////////
 
 async function generateSavingsCSV(input) {
-  const prompt = input;  // Keep naming consistent with your other functions
+  const prompt = input;  
 
   // Call the Groq proxy
   const data = await callGroq(prompt);
 
-  console.log("Groq CSV response:", data);  // Log for debugging
+  console.log("Groq CSV response:", data); 
 
   // Validate expected Groq response structure
   if (!data.choices) {
@@ -142,7 +142,6 @@ async function readCSV(url) {
   // Add rows for each line, split by commas
   const lines = text.trim().split("\n");
   // Get headers from first line
-  // const headers = lines[0].split(",");
   const headers = lines[0]
   .split(",")
   .map(h => h.replace(/\r/g, "").trim());
@@ -163,11 +162,10 @@ async function readCSV(url) {
 //  Inputs: url - The prompt to send to the AI to generate the CSV data
 //  Outputs: Array of objects read from the AI generated CSV file
 //  Error Checking: None
-//  Summary: Sends a prompt to the Groq proxy to generate a CSV file based on 
-// the input, reads the raw CSV text, and returns an array of objects 
-// representing the rows in the CSV file. Each object has keys 
-// corresponding to the column headers and values corresponding to the data 
-// in each row.
+//  Summary: Sends a prompt to the Groq proxy to generate a CSV file based on
+//      the input, reads the CSV text, and returns an array of objects
+//      representing the rows in the CSV file. This matches the code.org
+//      data table format.
 ///////////////////////////////////////////////////////////////////////////
 
 async function readCSVFromAI(input) {
@@ -175,7 +173,7 @@ async function readCSVFromAI(input) {
 
   const lines = csvText.trim().split("\n");
 
-  // Hardcode the expected headers instead of reading from AI output
+  // Hardcodes the expected headers instead of reading from AI output
   const headers = ["id", "Bank", "Account Name", "Interest (Decimal)", "Compoundings per Year", "Monthly Fees", "Minimum Deposit"];
 
   // Check if first line looks like a header row and skip it if so
@@ -207,6 +205,7 @@ async function readStandardAccountsFromFile() {
   console.log("Reading Standard Accounts...");
   standardAccounts = await readCSV("StandardAccounts.csv");
   console.log("Now it's safe to use:", standardAccounts);
+
   //   Convert table into lists to match Code.org format
   standardAccountsBankNames = getColumn(standardAccounts, "Bank");
   standardAccountsBankAccounts = getColumn(standardAccounts, "Account Name");
@@ -393,6 +392,7 @@ async function initialize() {
 function checkBankInput(condition) {
   bankFound = false;
   if (fixedRatesStatus == false) {
+    //Checks if the user's inputted bank matches one stored in the app
     for (i = 0; i < filteredStandardAccountsBankNames.length; i++) {
       if (filteredStandardAccountsBankNames[i] == condition) {
         bankFound = true;
@@ -400,6 +400,7 @@ function checkBankInput(condition) {
       }
     }
   } else if (fixedRatesStatus == true) {
+    //Checks if the user's inputted bank matches one stored in the app
     for (i = 0; i < filteredCDAccountsBankNames.length; i++) {
       if (filteredCDAccountsBankNames[i] == condition) {
         bankFound = true;
@@ -414,7 +415,7 @@ function checkBankInput(condition) {
 //  Inputs: input - The string input to check for validity as a number
 //  Outputs: Returns true if the input is a valid number, false otherwise
 //  Error Checking: None - Should only be called after data is loaded.
-//  Summary: Checks if the specified input is a valid number.
+//  Summary: Checks if the specified input is a valid number (whole number 0-9).
 ///////////////////////////////////////////////////////////////////////////
 function checkInput(input) {
        if (/[^0-9]/.test(input) || input == "") {
@@ -560,7 +561,16 @@ function findBestMatch(input) {
   return findClosestAccountForBank(bank, input);
 }
 
-
+///////////////////////////////////////////////////////////////////////////
+//  Function: searchOutput
+//  Inputs: None
+//  Outputs: Writes the details of the matched account to the search output box
+//  Summary: Looks up the account the user typed into the search bar using
+//    the app’s fuzzy‑search system. If a match is found, it displays the
+//    bank name, account name, interest rate, compounding frequency, fees,
+//    and minimum deposit. If no match is found, it shows a message
+//    letting the user know.
+///////////////////////////////////////////////////////////////////////////
 function searchOutput() {
   const result = findBestMatch("browseAccountsSearchBar");
   if (!result) {
@@ -608,7 +618,6 @@ function searchOutput() {
 ///////////////////////////////////////////////////////////////////////////
 function calculateSavingsPlan() {
   setScreen("savingsPlanOutputScreen");
-  const points = null;
 
   if (getText("savingsPlanFixedRatesInput") == "No") {
     fixedRatesStatus = false;
@@ -805,25 +814,31 @@ function compareTwoAccountsGrowth() {
 //    indicating which account performs better and why.
 ///////////////////////////////////////////////////////////////////////////
 function explainCompareRates() {
+  // Get the IDs of the two account input boxes
   const input1 = "compareRatesAccount1Input";
   const input2 = "compareRatesAccount2Input";
 
+  // Read and trim the user’s text from both boxes
   const text1 = getText(input1).trim();
   const text2 = getText(input2).trim();
 
+  // If either box is empty, show a message and stop
   if (!text1 || !text2) {
     setText("compareRatesOutput", "Please enter two account names to compare.");
     return;
   }
 
+  // Use fuzzy search to find the closest matching accounts
   const acc1 = findBestMatch(input1);
   const acc2 = findBestMatch(input2);
 
+  // If either account cannot be found, show an error and stop
   if (!acc1 || !acc2) {
     setText("compareRatesOutput", "One or both accounts could not be found.");
     return;
   }
 
+  // Build an object for Account A using either CD or standard account data
   const a = acc1.isCD
     ? {
         bank: cDAccountsBankNames[acc1.index],
@@ -838,6 +853,7 @@ function explainCompareRates() {
         comp: standardAccountsBankCompoundings[acc1.index]
       };
 
+  // Build an object for Account B in the same way
   const b = acc2.isCD
     ? {
         bank: cDAccountsBankNames[acc2.index],
@@ -852,29 +868,36 @@ function explainCompareRates() {
         comp: standardAccountsBankCompoundings[acc2.index]
       };
 
+  // Read the principal and number of years the user wants to simulate
   const principal = getNumber("compareRatesPrincipalInput");   
   const years = getNumber("compareRatesLengthInput"); 
 
+  // Compute growth curves for both accounts
   const pointsA = computeGrowth(principal, a.rate, a.comp, years);
   const pointsB = computeGrowth(principal, b.rate, b.comp, years);
 
+  // Get the final dollar amount for each account
   const finalA = pointsA[pointsA.length - 1];
   const finalB = pointsB[pointsB.length - 1];
 
+  // Prepare the explanation message
   let message = "";
 
+  // Makes a recommendation based on which account makes more money
   if (finalA > finalB) {
     message =
       `Investment Investigator suggests ${a.account} at ${a.bank} because it ends with $${finalA.toFixed(0)}, ` +
       `which is higher than ${b.account} at ${b.bank}, ` +
       `which ends with $${finalB.toFixed(0)}.\n\n` +
       `Therefore, **${a.account}** is the better choice over a ${years}-year period with a principal of $${principal}.`;
+
   } else if (finalB > finalA) {
     message =
       `Investment Investigator suggests ${b.account} at ${b.bank} because it ends with $${finalB.toFixed(0)}, ` +
       `which is higher than ${a.account} at ${a.bank}, ` +
       `which ends with $${finalA.toFixed(0)}.\n\n` +
       `Therefore, **${b.account}** is the better choice over a ${years}-year period with a principal of $${principal}.`;
+
   } else {
     message =
       `Both accounts end with the same value of $${finalA.toFixed(0)} after ${years} years.`;
@@ -882,6 +905,7 @@ function explainCompareRates() {
 
   setText("compareRatesOutput", message);
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -905,8 +929,10 @@ function findMax(principal, time) {
   let max = 0;
   let temp;
   if (fixedRatesStatus == false) {
+    //Uses compound interest formula to calculate the potential value of each account
     for (i = 0; i < filteredStandardAccountsBankNames.length; i++) {
       temp = (principal * (Math.pow(1 + (filteredStandardAccountsBankRates[i] / filteredStandardAccountsBankCompoundings[i]), (filteredStandardAccountsBankCompoundings[i] * time))));
+      //Sets max equal to the account that has the highest potential value
       if (temp > max) {
         max = temp;
         finalBank = filteredStandardAccountsBankNames[i];
@@ -919,8 +945,10 @@ function findMax(principal, time) {
     }
     return Math.round(max);
   } else if (fixedRatesStatus == true) {
+    //Uses compound interest formula to calculate the potential value of each account
     for (i = 0; i < filteredCDAccountsBankNames.length; i++) {
       temp = (principal * (Math.pow(1 + (filteredCDAccountsBankRates[i] / filteredCDAccountsBankCompoundings[i]), (filteredCDAccountsBankCompoundings[i] * time))));
+      //Sets max equal to the account that has the highest potential value
       if (temp > max) {
         max = temp;
         finalBank = filteredCDAccountsBankNames[i];
@@ -948,6 +976,7 @@ function findMax(principal, time) {
 //    effectively shrinking the active account list for further filtering.
 ///////////////////////////////////////////////////////////////////////////
 function sortList(standardList, cDlist, condition) {
+  let i = 0;
   let bankTemp = [];
   let accountTemp = [];
   let rateTemp = [];
@@ -955,6 +984,7 @@ function sortList(standardList, cDlist, condition) {
   let feeTemp = [];
   let depositTemp = [];
   if (fixedRatesStatus == false) {
+    //Populates the temporary arrays with all accounts that satisfy condition
     for (i = 0; i < filteredStandardAccountsBankNames.length; i++) {
       if (standardList[i] == condition) {
         appendItem(bankTemp, filteredStandardAccountsBankNames[i]);
@@ -965,6 +995,7 @@ function sortList(standardList, cDlist, condition) {
         appendItem(depositTemp, filteredStandardAccountsMinimumDeposits[i]);
       }
     }
+    //Sets filtered lists equal to the newly filtered temporary arrays
     filteredStandardAccountsBankNames = bankTemp;
     filteredStandardAccountsBankAccounts = accountTemp;
     filteredStandardAccountsBankRates = rateTemp;
@@ -973,6 +1004,7 @@ function sortList(standardList, cDlist, condition) {
     filteredStandardAccountsMinimumDeposits = depositTemp;
     return;
   } else if (fixedRatesStatus == true) {
+    //Populates the temporary arrays with all accounts that satisfy condition
     for (i = 0; i < filteredCDAccountsBankNames.length; i++) {
       if (cDlist[i] == condition) {
         appendItem(bankTemp, filteredCDAccountsBankNames[i]);
@@ -983,6 +1015,7 @@ function sortList(standardList, cDlist, condition) {
         appendItem(depositTemp, filteredCDAccountsMinimumDeposits[i]);
       }
     }
+    //Sets filtered lists equal to the newly filtered temporary arrays
     filteredCDAccountsBankNames = bankTemp;
     filteredCDAccountsBankAccounts = accountTemp;
     filteredCDAccountsBankRates = rateTemp;
@@ -1008,6 +1041,7 @@ function monthlyFeesFilter(type) {
   if (getText(type) == "Yes") {
     return;
   } else if (getText(type) == "No") {
+    //Calls sortList function to filter out any accounts that don't match the user's monthly fees preference
     sortList(filteredStandardAccountsBankFees, filteredCDAccountsBankFees, 0);
   }
 }
@@ -1027,6 +1061,7 @@ function minimumDepositFilter(type) {
   if (getText(type) == "Yes") {
     return;
   } else if (getText(type) == "No") {
+    //Calls sortList function to filter out any accounts that don't match the user's minimum deposit preference
     sortList(filteredStandardAccountsMinimumDeposits, filteredCDAccountsMinimumDeposits, 0);
   }
 }
@@ -1049,6 +1084,7 @@ function bankFilter(input) {
     bankFound = true;
     return;
   } else if (bankFound == true) {
+    //Calls sortList function to filter out any accounts that don't match the user's bank preference
     sortList(filteredStandardAccountsBankNames, filteredCDAccountsBankNames, getText(input));
   } else {
     setText(input, "Bank Not Found");
@@ -1060,6 +1096,7 @@ function bankFilter(input) {
 ///////////////////////////////////////////////////////////////////////////
 
 // Buttons Actions
+
 onEvent("savingsPlanCalculateButton", "click", function () {
   hideElement("savingsPlanOutputScreenTutorial");
   calculateSavingsPlan();
@@ -1129,8 +1166,6 @@ onEvent("browseAccountsCompareRatesCalculateButton", "click", function () {
 
 onEvent("confirmPointButton", "click", function () {
   if (userChoice) {
-
-    alert("Plan Confirmed!");
     setScreen("savingsPlanSummaryScreen");
     setText("savingsPlanOutput",
       "To achieve your goal of $" + getNumber("savingsPlanInvestmentGoalInput") +

@@ -122,26 +122,33 @@ function renderAllAccountsTables() {
 // (insertions, deletions or substitutions) required to change one string 
 // into the other.
 ///////////////////////////////////////////////////////////////////////////
-
 function levenshtein(a, b) {
   const matrix = [];
+  // Create an empty 2D matrix that will store all edit‑distance values
 
+  //Fills matrix by iterating through all rows and columns using parameters a and b
   for (let i = 0; i <= b.length; i++) matrix[i] = [i];
   for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
   for (let i = 1; i <= b.length; i++) {
     for (let j = 1; j <= a.length; j++) {
+
       const cost = b[i - 1].toLowerCase() === a[j - 1].toLowerCase() ? 0 : 1;
+      // Cost is 0 if characters match (case‑insensitive), otherwise 1
+
       matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,     // deletion
-        matrix[i][j - 1] + 1,     // insertion
-        matrix[i - 1][j - 1] + cost // substitution
+        matrix[i - 1][j] + 1,      
+        matrix[i][j - 1] + 1,        
+        matrix[i - 1][j - 1] + cost  
       );
+      // Chooses the cheapest edit and store it in the matrix
     }
   }
 
+  // Returns the cell containing the minimum number of edits needed
   return matrix[b.length][a.length];
 }
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Drawing Helper Functions
@@ -195,27 +202,27 @@ function drawGraph(points) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 
-  // Graph boundaries
+  // Graph boundaries to fit in html canvas
   const left = 50;
   const right = 550;
   const bottom = 350;
   const top = 50;
 
-  // Use rounded max value
+  // Use rounded max value to scale tick labels
   const rawMax = Math.max.apply(null, points);
   const maxValue = roundUp(rawMax);
 
   const scaleY = (bottom - top) / maxValue;
   const scaleX = (right - left) / (points.length - 1);
 
-  //Draw Axes
+  //Draw axes
   ctx.beginPath();
   ctx.moveTo(left, bottom);
   ctx.lineTo(right, bottom); // X-axis
   ctx.lineTo(right, top);    // Y-axis
   ctx.stroke();
 
-
+  // Draw the graph line
   ctx.beginPath();
   ctx.strokeStyle = "blue";
   ctx.lineWidth = 2;
@@ -275,6 +282,17 @@ function drawGraph(points) {
   }
 }
 
+///////////////////////////////////////////////////////////////////////////
+//  Function: drawDualGraph
+//  Inputs: pointsA, pointsB (growth values for each account),
+//          nameA, nameB (the account names to label the lines)
+//  Outputs: Draws a two‑line comparison graph on the Compare Rates canvas
+//  Summary: Plots both accounts on the same graph so users can visually
+//    compare how each one grows over time. It draws the axes, scales the
+//    graph, plots both lines in different colors, labels the start and end
+//    values, and adds a small legend showing which line belongs to which
+//    account.
+///////////////////////////////////////////////////////////////////////////
 function drawDualGraph(pointsA, pointsB, nameA, nameB) {
   const canvas = document.getElementById("compareRatesCanvas");
   const ctx = canvas.getContext("2d");
@@ -286,17 +304,19 @@ function drawDualGraph(pointsA, pointsB, nameA, nameB) {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Graph boundaries
+  // Graph boundaries to fit inside html canvas
   const left = 50;
   const right = 550;
   const bottom = 350;
   const top = 50;
 
-  // Shared max
+  // Shared max for both account curves
   const rawMax = Math.max(
     Math.max.apply(null, pointsA),
     Math.max.apply(null, pointsB)
   );
+
+  //Rounds tick labels to even numbers
   const maxValue = roundUp(rawMax);
 
   const scaleY = (bottom - top) / maxValue;
@@ -463,101 +483,118 @@ function computeGrowthAdvanced(principal, rate, n, years, depositAmount, deposit
 // Savings Plan Graph Helper Functions
 ///////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////
+//  Function: drawInteractiveSavingsPlan
+//  Inputs: investmentGoal, investmentLength, finalRate, finalCompounding,
+//          depositFrequency, onSelectCallback
+//  Outputs: Draws an interactive graph on the Savings Plan canvas
+//  Summary: Creates a graph that shows the trade‑off between starting
+//    principal and recurring deposit amounts needed to reach a savings
+//    goal. It draws the axes, scales the graph, plots the relationship
+//    line, and lets the user click anywhere on the graph to choose a
+//    custom principal‑to‑deposit combination. The selected point is
+//    highlighted and passed back through a callback function.
+///////////////////////////////////////////////////////////////////////////
 function drawInteractiveSavingsPlan(investmentGoal, investmentLength, finalRate, finalCompounding, depositFrequency, onSelectCallback) {
   const canvas = document.getElementById("savingsPlanCanvas");
   const ctx = canvas.getContext("2d");
 
-  // 1.Math Constants
+  // Store inputs in shorter variables for easier math
   const r = finalRate;
   const t = investmentLength;
   const n = finalCompounding;
   const m = depositFrequency;
 
-  // Growth factors
-  const A = Math.pow(1 + r / n, n * t); 
-  const i_m = Math.pow(1 + r / n, n / m) - 1; 
-  const B = (Math.pow(1 + i_m, m * t) - 1) / i_m; 
+  // Growth factors used to calculate the relationship between principal and deposits
+  const A = Math.pow(1 + r / n, n * t);        // Growth of a single lump‑sum principal
+  const i_m = Math.pow(1 + r / n, n / m) - 1;  // Effective rate per deposit period
+  const B = (Math.pow(1 + i_m, m * t) - 1) / i_m; // Growth factor for recurring deposits
 
-  // Intercepts for scaling
+  // Maximum principal and deposit values that still reach the goal
   const rawMaxP = investmentGoal / A;
   const rawMaxD = investmentGoal / B;
 
-  // Use roundUp helper for clean axis labels
+  // Round values for cleaner axis labels
   const maxPrincipal = roundUp(rawMaxP);
   const maxDeposit = roundUp(rawMaxD);
 
+  // Graph boundaries inside the canvas
   const left = 100;
   const right = 530;
   const bottom = 330;
   const top = 50;
 
+  // Convert dollars → pixels
   const scaleX = (right - left) / maxPrincipal;
   const scaleY = (bottom - top) / maxDeposit;
 
+  // Stores the user’s selected point on the graph
   let selectedPoint = null;
 
+  // Draws the full graph, including axes, labels, and selected point
   function render(hoverPoint = null) {
+    // Clear the canvas and fill with white
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw Axes
+    // Draw the X and Y axes
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     ctx.moveTo(left, top);
-    ctx.lineTo(left, bottom); // Y-axis
-    ctx.lineTo(right, bottom); // X-axis
+    ctx.lineTo(left, bottom);   // Y-axis
+    ctx.lineTo(right, bottom);  // X-axis
     ctx.stroke();
 
-    // Draw the Relationship Line (Blue)
+    // Draw the main blue line showing the principal/deposit trade‑off
     ctx.beginPath();
     ctx.strokeStyle = "#0a84ff";
     ctx.lineWidth = 3;
-    // Map intercepts to pixels: (0 Principal, maxDeposit) to (maxPrincipal, 0 Deposit)
-    ctx.moveTo(left, bottom - (rawMaxD * scaleY));
-    ctx.lineTo(left + (rawMaxP * scaleX), bottom);
+    ctx.moveTo(left, bottom - (rawMaxD * scaleY));            // Top-left point
+    ctx.lineTo(left + (rawMaxP * scaleX), bottom);            // Bottom-right point
     ctx.stroke();
 
-    // Labels & Ticks
+    // Draw axis labels and tick marks
     ctx.fillStyle = "black";
     ctx.font = "12px Arial";
     const steps = 5;
 
-    // Y-axis Ticks (Periodic Deposit)
+    // Y-axis ticks (deposit amounts)
     for (let i = 0; i <= steps; i++) {
       const val = Math.round((maxDeposit / steps) * i);
       const y = bottom - (val * scaleY);
       ctx.fillText("$" + val, left - 60, y + 4);
-      // Tick mark
+
       ctx.beginPath();
       ctx.moveTo(left - 5, y);
       ctx.lineTo(left, y);
       ctx.stroke();
     }
 
-    // X-axis Ticks (Initial Principal)
+    // X-axis ticks (principal amounts)
     for (let i = 0; i <= steps; i++) {
       const val = Math.round((maxPrincipal / steps) * i);
       const x = left + (val * scaleX);
       ctx.fillText("$" + val, x - 15, bottom + 20);
-      // Tick mark
+
       ctx.beginPath();
       ctx.moveTo(x, bottom);
       ctx.lineTo(x, bottom + 5);
       ctx.stroke();
     }
 
-    // Axis Titles
+    // Axis titles
     ctx.font = "16px Arial";
     ctx.fillText("Initial Principal ($)", (left + right) / 2 - 50, bottom + 50);
+
     ctx.save();
     ctx.translate(left - 65, (top + bottom) / 2 + 50);
     ctx.rotate(-Math.PI / 2);
     ctx.fillText("Periodic Deposit ($)", 0, 0);
     ctx.restore();
 
-    // Draw Selection Point
+    // Draw the selected or hovered point
     const point = hoverPoint || selectedPoint;
     if (point) {
       ctx.beginPath();
@@ -571,19 +608,21 @@ function drawInteractiveSavingsPlan(investmentGoal, investmentLength, finalRate,
     }
   }
 
-  // 3. INTERACTION LOGIC
+  // Handles user clicks on the graph
   canvas.onmousedown = function(e) {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
 
+    // Only allow clicks inside the graph area
     if (x >= left && x <= right) {
-      const p = (x - left) / scaleX;
-      
-      // Safety check: ensure P doesn't exceed the mathematical max for the goal
-      if (p <= rawMaxP) {
-        const d = (investmentGoal - (p * A)) / B;
-        const y = bottom - (d * scaleY);
+      const p = (x - left) / scaleX;  // Convert pixel → principal
 
+      // Only allow valid principal values
+      if (p <= rawMaxP) {
+        const d = (investmentGoal - (p * A)) / B; // Solve for deposit
+        const y = bottom - (d * scaleY);          // Convert deposit → pixel
+
+        // Store the selected point
         selectedPoint = { 
           principal: p, 
           deposit: d, 
@@ -591,7 +630,10 @@ function drawInteractiveSavingsPlan(investmentGoal, investmentLength, finalRate,
           canvasY: y 
         };
 
+        // Redraw with the selected point
         render();
+
+        // Send the selected point back to the caller
         if (typeof onSelectCallback === "function") {
           onSelectCallback(selectedPoint);
         }
@@ -599,10 +641,9 @@ function drawInteractiveSavingsPlan(investmentGoal, investmentLength, finalRate,
     }
   };
 
+  // Draw the initial graph
   render();
 }
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////

@@ -38,7 +38,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Active screen */
 .screen.active {
   display: flex;
 }
@@ -105,7 +104,6 @@ body {
   flex-direction: column;
 }
 
-/* Form layout */
 .form-layout input,
 .form-layout select {
   width: 100%;
@@ -124,7 +122,7 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
-/* Small floating help button in top-right corner of every screen */
+/* Help button in top-right corner of every screen */
 .help-button {
   width: 34px;
   height: 34px;
@@ -150,7 +148,7 @@ body {
   background: #005ac2;
 }
 
-/* Small floating about button in top-right corner of every screen */
+/* About button in top-right corner of every screen */
 .about-button {
   width: 34px;
   height: 34px;
@@ -176,6 +174,31 @@ body {
   background: #005ac2;
 }
 
+/* Home button in top-right corner of every screen */
+.home-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a84ff;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.home-button:hover {
+  background: #006be6;
+}
+
+.home-button:active {
+  background: #005ac2;
+}
 
 /* ------------------------------
    SCREEN GAP SIZING
@@ -256,7 +279,7 @@ body {
    OUTPUT TEXT AREAS AND CAPTIONS
 ------------------------------ */
 
-/* FIND ACCOUNTS OUTPUT SCREEN */
+/* Find Accounts Output Screen */
 #findAccountsOutput {
   width: 100%;
   height: 220px;
@@ -290,8 +313,7 @@ body {
   letter-spacing: 0.2px;
 }
 
-/* COMPARE RATES OUTPUT SCREEN */
-
+/* Compare Rates Output Screen */
 #compareRatesOutput {
   width: 100%;
   height: 240px;
@@ -313,7 +335,7 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
-/* BROWSE ACCOUNTS SEARCH OUTPUT SCREEN */
+/* Browse accounts Search Output Screen*/
 #browseAccountsSearchOutput {
   width: 100%;
   height: 220px;
@@ -329,7 +351,7 @@ body {
   line-height: 1.4;
 }
 
-/* HELP SCREEN */
+/* Help Screen */
 #helpScreenOutput {
   width: 100%;
   height: 255px;
@@ -351,7 +373,7 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
-/* ABOUT SCREEN */
+/* About Screen */
 #aboutScreenOutput {
   width: 100%;
   height: 350px;
@@ -373,7 +395,7 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
-/* SAVINGS PLAN SUMMARY SCREEN */
+/* Savings Plan Summary Screen */
 #savingsPlanOutput {
   width: 100%;
   height: 255px;
@@ -402,7 +424,7 @@ body {
 /* Savings Plan Output Screen Tutorial */
 #savingsPlanOutputScreenTutorial {
   width: 100%;
-  height: 240px;
+  height: 260px;
   padding: 14px;
   font-size: 16px;
   border-radius: 10px;
@@ -535,7 +557,7 @@ body {
 #savingsPlanMonthlyFeesToolTip {
   flex: 0;            
   padding: 4px 7px;  
-  font-size: 18px;      /
+  font-size: 18px;      
 }
 
 #savingsPlanMinimumDepositInput {
@@ -571,7 +593,7 @@ body {
   font-size: 18px;      
 }
 
-#borwseAccountsCompareRatesScreen1.screen-header {
+#browseAccountsCompareRatesScreen1.screen-header {
   flex: 1;              
   max-width: 450px;     
 }
@@ -607,7 +629,7 @@ body {
 }
 
 /* ------------------------------------------
-   CENTER + COMPACT TABLES FOR ALL ACCOUNTS 
+   CENTER + COMPACT TABLES FOR ALL ACCOUNTS SCREEN 
 ------------------------------------------- */
 
 #browseAccountsAllAccountsScreen .screen-content {
@@ -730,7 +752,6 @@ button:active {
   background: #005ac2;
 }
 
-/* Secondary-style buttons (IDs preserved) */
 #RefreshAccounts {
   background: #e1e8f0;
   color: #0a2540;
@@ -762,6 +783,7 @@ button:active {
 #interestScreenBackButton,
 #helpScreenBackButton,
 #aboutScreenBackButton,
+#aboutScreenVideoButton,
 #savingsPlanScreen1BackButton,
 #savingsPlanScreen2BackButton,
 #savingsPlanOutputScreenBackButton,
@@ -781,6 +803,7 @@ button:active {
 #interestScreenBackButton:hover,
 #helpScreenBackButton:hover,
 #aboutScreenBackButton:hover,
+#aboutScreenVideoButton:hover,
 #savingsPlanScreen1BackButton:hover,
 #savingsPlanScreen2BackButton:hover,
 #savingsPlanOutputScreenBackButton:hover,
@@ -807,7 +830,6 @@ button:active {
   color: #0a2540;
 }
 
-/* Remove contenteditable outline */
 #title:focus {
   outline: none;
 }

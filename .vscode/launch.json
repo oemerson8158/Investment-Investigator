@@ -4,7 +4,7 @@
         {
             "type": "msedge",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Launch Edge against localhost",
             "url": "file://${workspaceFolder}/index.html",
             "webRoot": "${workspaceFolder}"
         }
