@@ -24,7 +24,7 @@ body {
 .app-container {
   max-width: 480px;
   margin: 0 auto;
-  height: 100dvh;
+  height: 90dvh;
   display: flex;
   flex-direction: column;
 }
@@ -751,6 +751,7 @@ button:active {
   justify-content: space-between;
   gap: 12px;
   margin-top: 20px;
+  margin-bottom: 120px;
 }
 
 .button-row button {
@@ -836,4 +837,3 @@ button:active {
     font-size: 15px;
   }
 }
-
