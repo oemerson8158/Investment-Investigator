@@ -99,7 +99,7 @@ onEvent("aboutScreenBackButton", "click", function () {
 });
 
 onEvent("aboutScreenVideoButton", "click", function () {
-  window.open("https://youtu.be/X68NMoV2c9U", "_blank");
+  window.open("https://youtu.be/MkREOBvqixE", "_blank");
 });
 
 // Event Handlers (Screen Navigation) For Interest Screen
